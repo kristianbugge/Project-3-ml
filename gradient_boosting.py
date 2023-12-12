@@ -14,9 +14,9 @@ from sklearn.exceptions import ConvergenceWarning
 from sklearn.datasets import load_digits
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 
-digit = load_digits()
-z  = digit.target
-X = digit.data
+digits = load_digits()
+z  = digits.target
+X = digits.data
 #Splitting data 4/5 train and 1/5 test, so more data to train than test
 X_train, X_test, z_train, z_test = train_test_split(X,z,test_size=0.4,random_state=0)
 
@@ -32,6 +32,16 @@ gd_clf.fit(X_train_scaled, z_train)
 accuracy = cross_validate(gd_clf,X_test_scaled,z_test,cv=10)['test_score']
 print(accuracy)
 print("Test set accuracy with Gradient boosting and scaled data: {:.2f}".format(gd_clf.score(X_test_scaled,z_test)))
+conf_matrix = confusion_matrix(z_test, gd_clf.predict(X_test))
+
+# Plot confusion matrix heatmap for scaled data
+plt.figure(figsize=(6, 4))
+sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', cbar=False,
+            xticklabels=digits.target_names, yticklabels=digits.target_names)
+plt.title('Confusion Matrix')
+plt.xlabel('Predicted')
+plt.ylabel('True for class')
+plt.show()
 
 #----------------------Without using sklearn GradientBoostingClassifier-----------------
 
