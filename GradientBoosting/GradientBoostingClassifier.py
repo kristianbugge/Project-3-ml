@@ -1,53 +1,7 @@
-import seaborn as sns
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.neural_network import MLPClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix
-from sklearn.model_selection import KFold, train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.model_selection import cross_validate
-
-import warnings
-from sklearn.exceptions import ConvergenceWarning
-
-from sklearn.datasets import load_digits
-from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
-
-digits = load_digits()
-z  = digits.target
-X = digits.data
-#Splitting data 4/5 train and 1/5 test, so more data to train than test
-X_train, X_test, z_train, z_test = train_test_split(X,z,test_size=0.4,random_state=0)
-
-scaler = StandardScaler()
-scaler.fit(X_train)
-X_train_scaled = scaler.transform(X_train)
-X_test_scaled = scaler.transform(X_test)
-
-gd_clf = GradientBoostingClassifier(max_depth=3, n_estimators=100)  
-gd_clf.fit(X_train_scaled, z_train)
-
-#Cross validation
-accuracy = cross_validate(gd_clf,X_test_scaled,z_test,cv=10)['test_score']
-print(accuracy)
-print("Test set accuracy with Gradient boosting and scaled data: {:.2f}".format(gd_clf.score(X_test_scaled,z_test)))
-conf_matrix = confusion_matrix(z_test, gd_clf.predict(X_test))
-
-# Plot confusion matrix heatmap for scaled data
-plt.figure(figsize=(6, 4))
-sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', cbar=False,
-            xticklabels=digits.target_names, yticklabels=digits.target_names)
-plt.title('Confusion Matrix')
-plt.xlabel('Predicted')
-plt.ylabel('True for class')
-plt.show()
-
-#----------------------Without using sklearn GradientBoostingClassifier-----------------
-
 import pandas as pd 
 from sklearn.tree import DecisionTreeRegressor 
 from sklearn.preprocessing import OneHotEncoder
+import numpy as np
 
 # reference to code
 # https://python-bloggers.com/2023/10/gradient-boosting-multi-class-classification-from-scratch/
@@ -144,10 +98,3 @@ class GradientBoostingClassifierFromScratch():
         '''Generate predicted labels (as 1-d array)'''
         probabilities = self.predict_proba(X)
         return np.argmax(probabilities, axis=1)
-    
-gbcfs = GradientBoostingClassifierFromScratch(n_estimators=10, 
-                                              learning_rate=0.3, 
-                                              max_depth=6)
-gbcfs.fit(X_train, z_train)
-print(accuracy_score(z_test, gbcfs.predict(X_test)))
-
