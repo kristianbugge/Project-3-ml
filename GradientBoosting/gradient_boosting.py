@@ -59,7 +59,9 @@ plt.savefig(results_path)
 plt.close()
 
 # ROC Curve
-skplt.metrics.plot_confusion_matrix(z_test, z_pred, normalize=True, title='Confusion Matrix Scikit-Learn Gradient Boosting (probas), unscaled data', figsize=(16,16), text_fontsize=24, title_fontsize=28)
+skplt.metrics.plot_confusion_matrix(z_test, z_pred, normalize=True, title='Confusion Matrix Scikit-Learn GBC (proba), unscaled', figsize=(16,16), text_fontsize=24, title_fontsize=28)
+cax = plt.gcf().axes[-1]
+cax.tick_params(axis='y', labelsize=20) 
 results_path = f'scikitlearn_unscaled_CM%_Boosting.png'
 plt.savefig(results_path)
 plt.close()
@@ -97,7 +99,9 @@ plt.savefig(results_path)
 plt.close()
 
 # ROC Curve
-skplt.metrics.plot_confusion_matrix(z_test, z_pred, normalize=True, title='Confusion Matrix Scikit-Learn Gradient Boosting (probas), scaled data', figsize=(16,16), text_fontsize=24, title_fontsize=28)
+skplt.metrics.plot_confusion_matrix(z_test, z_pred, normalize=True, title='Confusion Matrix Scikit-Learn GBC (proba), scaled', figsize=(16,16), text_fontsize=24, title_fontsize=28)
+cax = plt.gcf().axes[-1]
+cax.tick_params(axis='y', labelsize=20) 
 results_path = f'scikitlearn_scaled_CM%_Boosting.png'
 plt.savefig(results_path)
 plt.close()
@@ -138,7 +142,9 @@ plt.savefig(results_path)
 plt.close()
 
 # ROC Curve
-skplt.metrics.plot_confusion_matrix(z_test, z_pred, normalize=True, title='Confusion Matrix on handmade Gradient Boosting(proba), unscaled data', figsize=(16,16), text_fontsize=24, title_fontsize=28)
+skplt.metrics.plot_confusion_matrix(z_test, z_pred, normalize=True, title='Confusion Matrix on handmade GBC (proba), unscaled', figsize=(16,16), text_fontsize=24, title_fontsize=28)
+cax = plt.gcf().axes[-1]
+cax.tick_params(axis='y', labelsize=20) 
 results_path = f'handmade_unscaled_CM%_Boosting.png'
 plt.savefig(results_path)
 plt.close()
@@ -172,7 +178,9 @@ plt.savefig(results_path)
 plt.close()
 
 # ROC Curve
-skplt.metrics.plot_confusion_matrix(z_test, z_pred, normalize=True, title='Confusion Matrix on handmade Gradient Boosting (proba), scaled data', figsize=(16,16), text_fontsize=24, title_fontsize=28)
+skplt.metrics.plot_confusion_matrix(z_test, z_pred, normalize=True, title='Confusion Matrix on handmade GBC (proba), scaled', figsize=(16,16), text_fontsize=24, title_fontsize=28)
+cax = plt.gcf().axes[-1]
+cax.tick_params(axis='y', labelsize=20) 
 results_path = f'handmade_scaled_CM%_Boosting.png'
 plt.savefig(results_path)
 plt.close()
