@@ -16,7 +16,7 @@ from sklearn.datasets import load_digits
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 
 #---------------------- Setting Up the Data-----------------------
-
+np.random.seed(4231)
 digits = load_digits()
 z  = digits.target
 X = digits.data
